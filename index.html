@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Resume</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <section id="intro">
+        <h1>Hello, I am [Your Name]</h1>
+        <button onclick="document.getElementById('about').scrollIntoView();">More About Me</button>
+    </section>
+    <section id="about">
+        <h2>Let Me Introduce Myself</h2>
+        <p>[Your introduction goes here]</p>
+        <button onclick="window.location.href='path/to/your/cv.pdf';">Download CV</button>
+    </section>
+    <section id="resume">
+        <h2>Resume</h2>
+        <p>[Your resume details go here]</p>
+    </section>
+    <section id="education">
+        <h2>Education</h2>
+        <p>[Your education details go here]</p>
+    </section>
+    <section id="portfolio">
+        <h2>Portfolio</h2>
+        <div class="portfolio-item" onclick="window.open('https://example.com', '_blank');">Project 1</div>
+        <div class="portfolio-item" onclick="window.open('https://example.com', '_blank');">Project 2</div>
+        <div class="portfolio-item" onclick="window.open('https://example.com', '_blank');">Project 3</div>
+    </section>
+    <section id="contact">
