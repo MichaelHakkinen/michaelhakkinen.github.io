@@ -5,29 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Resume</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <section id="intro">
+    <section id="intro" class="text-center">
         <h1>Hello, I am [Your Name]</h1>
-        <button onclick="document.getElementById('about').scrollIntoView();">More About Me</button>
+        <button class="btn btn-primary" onclick="document.getElementById('about').scrollIntoView();">More About Me</button>
     </section>
-    <section id="about">
+    <section id="about" class="mt-5">
         <h2>Let Me Introduce Myself</h2>
         <p>[Your introduction goes here]</p>
-        <button onclick="window.location.href='path/to/your/cv.pdf';">Download CV</button>
+        <button class="btn btn-success" onclick="window.location.href='path/to/your/cv.pdf';">Download CV</button>
     </section>
-    <section id="resume">
+    <section id="resume" class="mt-5">
         <h2>Resume</h2>
         <p>[Your resume details go here]</p>
     </section>
-    <section id="education">
+    <section id="education" class="mt-5">
         <h2>Education</h2>
         <p>[Your education details go here]</p>
     </section>
-    <section id="portfolio">
+    <section id="education" class="mt-5">
+        <h2>Education</h2>
+        <p>[Your education details go here]</p>
+    </section>
+    <section id="portfolio" class="mt-5">
         <h2>Portfolio</h2>
         <div class="portfolio-item" onclick="window.open('https://example.com', '_blank');">Project 1</div>
         <div class="portfolio-item" onclick="window.open('https://example.com', '_blank');">Project 2</div>
         <div class="portfolio-item" onclick="window.open('https://example.com', '_blank');">Project 3</div>
     </section>
-    <section id="contact">
+    <section id="contact" class="mt-5">
+        <h2>Contact Me</h2>
+        <form id="contact-form">
+            <input type="text" class="form-control mb-2" name="name" placeholder="Your Name" required>
+            <input type="email" class="form-control mb-2" name="email" placeholder="Your Email" required>
+            <textarea class="form-control mb-2" name="message" placeholder="Your Message" required></textarea>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </section>
+    <footer class="text-center mt-5">
+        <h2>Where to Find Me</h2>
+        <p>Email: [Your Email]</p>
+        <p>Phone: [Your Phone Number]</p>
+        <p>&copy; 2025 [Your Name]. All rights reserved.</p>
+        <div class="social-media">
+            <a href="https://twitter.com/yourprofile" class="btn btn-link">Twitter</a>
+            <a href="https://linkedin.com/in/yourprofile" class="btn btn-link">LinkedIn</a>
+            <a href="https://github.com/yourprofile" class="btn btn-link">GitHub</a>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
