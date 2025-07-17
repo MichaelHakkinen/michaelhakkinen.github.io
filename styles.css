@@ -1,0 +1,26 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+section {
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.portfolio-item {
+    background-color: #f4f4f4;
+    padding: 10px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+.social-media a {
+    margin: 0 10px;
+}
