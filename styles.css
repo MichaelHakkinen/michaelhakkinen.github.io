@@ -1,26 +1,103 @@
+<<<<<<< SEARCH
+=======
+/* General Styles */
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
 }
-section {
-    padding: 20px;
-    margin: 20px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+
+/* Each section takes full viewport height */
+.page-section {
+    min-height: 100vh;
+    padding: 80px 0;
+    position: relative;
 }
-.portfolio-item {
-    background-color: #f4f4f4;
-    padding: 10px;
-    margin: 10px 0;
-    cursor: pointer;
+
+/* Navigation styling */
+.navbar {
+    transition: all 0.3s;
 }
-footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #f4f4f4;
+
+.navbar.scrolled {
+    background-color: rgba(0, 0, 0, 0.9) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-.social-media a {
+
+.nav-link {
     margin: 0 10px;
+    font-weight: 500;
+    transition: all 0.3s;
 }
+
+/* Hero section styling */
+#home {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+/* Section themes */
+#about {
+    background-color: #f8f9fa;
+}
+
+#services {
+    background-color: #ffffff;
+}
+
+#portfolio {
+    background-color: #f8f9fa;
+}
+
+#contact {
+    background-color: #343a40;
+    color: white;
+}
+
+/* Card styling */
+.service-card {
+    transition: all 0.3s;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Portfolio item styling */
+.portfolio-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.portfolio-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    transition: all 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.portfolio-item:hover .portfolio-overlay {
+    opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .display-3 {
+        font-size: 2.5rem;
+    }
+}
+>>>>>>> REPLACE
