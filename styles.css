@@ -102,3 +102,12 @@ body {
     animation: bounce 2s infinite;
     cursor: pointer;
 }
+
+/* Resume Section */
+#about {
+    background-color: #f8f9fa; 
+}
+
+.rounded-circle {
+    border-radius: 50%;
+}
