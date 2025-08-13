@@ -1,0 +1,285 @@
+/* ================================
+   General Styles
+================================ */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    /* padding-top: 80px; */
+    scroll-padding-top: 80px;
+    position: relative;
+}
+
+/* Base section styling */
+.page-section {
+    padding: 80px 0; /* base vertical padding */
+    position: relative;
+}
+
+/* Remove double padding between consecutive sections */
+.page-section + .page-section {
+    padding-top: 0;
+}
+
+/* ================================
+   Navigation
+================================ */
+.active-brand { 
+    color: #fff !important; 
+}
+.navbar {
+    transition: all 0.3s;
+}
+.navbar-brand {
+    color: white !important;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+.navbar-nav .nav-link {
+    color: rgba(255,255,255,0.7); /* dim default */
+    transition: color 0.2s;
+}
+.navbar-nav .nav-link.active {
+    color: #fff !important; /* bright white when active */
+    /* font-weight: bold; */
+}
+.navbar.scrolled {
+    background-color: rgba(0, 0, 0, 0.9) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.nav-link {
+    margin: 0 10px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+/* Arrow inside button */
+.position-relative .fas {
+    transition: transform 0.3s ease;
+}
+.position-relative:hover .fas {
+    transform: translateY(3px);
+}
+
+/* ================================
+   Section Backgrounds
+================================ */
+#home {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+#about { 
+    background-color: #f8f9fa; 
+}
+#about.page-section {
+  padding-top: 80px;
+}
+
+#services { background-color: #ffffff; }
+#portfolio { background-color: #f8f9fa; }
+#contact { 
+    background-color: #343a40; color: white; 
+    padding-top: 60px;
+}
+
+/* ================================
+   Cards
+================================ */
+.service-card {
+    transition: all 0.3s;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ================================
+   Portfolio
+================================ */
+.portfolio-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.portfolio-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    transition: all 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.portfolio-item:hover .portfolio-overlay {
+    opacity: 1;
+}
+
+/* ================================
+   Resume Section
+================================ */
+.rounded-circle {
+    border-radius: 50%;
+}
+
+.resume-timeline {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    color: #2b2d42;
+}
+
+.resume-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.resume-header img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+}
+
+.resume-title {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+    color: #3a86ff;
+}
+
+.resume-subtitle {
+    font-size: 1.1rem;
+    font-weight: 400;
+    opacity: 0.8;
+    margin-bottom: 2rem;
+}
+
+.resume-timeline-list {
+    position: relative;
+    padding-left: calc(20px / 2 + 10px);
+}
+.resume-timeline-list::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(20px / 2);
+    width: 4px;
+    background: linear-gradient(to bottom, #3a86ff, #8338ec);
+    border-radius: 10px;
+}
+
+.resume-timeline-item {
+    position: relative;
+    margin-bottom: 2.5rem;
+}
+
+.resume-timeline-dot {
+    position: absolute;
+    left: calc(20px / -2);
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #3a86ff;
+    border: 3px solid white;
+    z-index: 1;
+}
+
+.resume-timeline-content {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+.resume-timeline-content:hover {
+    transform: translateY(-5px);
+}
+
+.resume-timeline-date {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    background: linear-gradient(to right, #3a86ff, #8338ec);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+.resume-timeline-title {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: #2b2d42;
+}
+
+.resume-timeline-position {
+    font-weight: 600;
+    color: #3a86ff;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.resume-timeline-description {
+    opacity: 0.9;
+    font-size: 0.95rem;
+}
+
+.resume-skills {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.resume-skill {
+    background-color: #e9f0ff;
+    color: #3a86ff;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+/* ================================
+   Responsive
+================================ */
+@media (max-width: 768px) {
+    .display-3 {
+        font-size: 2.5rem;
+    }
+    .timeline-content {
+        padding: 1rem;
+    }
+}
+
+/* ================================
+   Animations
+================================ */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+.fa-chevron-down {
+    animation: bounce 2s infinite;
+    cursor: pointer;
+}
+
+
+html {
+  scroll-behavior: smooth;
+}
+
