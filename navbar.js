@@ -35,7 +35,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
+    
+    // Make all external links open in a new tab
+    document.querySelectorAll('a[href^="http"]').forEach(link => {
+    if (link.hostname !== window.location.hostname) {
+      link.setAttribute('target', '_blank');
+      link.setAttribute('rel', 'noopener noreferrer');
+    }
+    });
+    
     // Enable ScrollSpy
     new bootstrap.ScrollSpy(document.body, {
         target: '#mainNav',
@@ -69,3 +77,4 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(item);
     });
 });
+
