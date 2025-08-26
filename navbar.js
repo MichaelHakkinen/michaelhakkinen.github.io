@@ -85,7 +85,16 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleBtn.textContent = currentLang === "en" ? "🇬🇧 EN" : "🇮🇩 ID";
 
         document.querySelectorAll("[data-en]").forEach(el => {
-            el.textContent = el.getAttribute(`data-${currentLang}`);
+            if (el.tagName === "A") {
+                if (el.hasAttribute(`data-${currentLang}`)) {
+                    el.setAttribute("href", el.getAttribute(`data-${currentLang}`));
+                }
+                if (el.hasAttribute(`data-${currentLang}-label`)) {
+                    el.textContent = el.getAttribute(`data-${currentLang}-label`);
+                }
+            } else {
+                el.textContent = el.getAttribute(`data-${currentLang}`);
+            }
         });
     });
 });
