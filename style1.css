@@ -286,7 +286,18 @@ html {
 #contact {
   background-color: #212529; /* same dark tone as footer */
   color: white;
+  padding: 60px 0 20px 0; /* reduce bottom padding so it blends into footer */
+  margin-bottom: 0;       /* remove any gap before footer */
 }
+
+
+
+footer {
+  background-color: #212529 !important; /* match contact */
+  padding-top: 0;   /* no extra top padding */
+  margin-top: 0;    /* ensure no gap */
+}
+
 
 .contact-box {
   background: #2c2f33; /* slightly lighter than footer for contrast */
@@ -304,3 +315,18 @@ html {
 .contact-box a:hover {
   text-decoration: underline;
 }
+
+.info-box {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  color: #fff;
+  min-width: 160px;
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.info-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
