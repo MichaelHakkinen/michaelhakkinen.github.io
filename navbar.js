@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-    
+
     // Make all external links open in a new tab
     document.querySelectorAll('a[href^="http"]').forEach(link => {
     if (link.hostname !== window.location.hostname) {
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
       link.setAttribute('rel', 'noopener noreferrer');
     }
     });
-    
+
     // Enable ScrollSpy
     new bootstrap.ScrollSpy(document.body, {
         target: '#mainNav',
@@ -75,6 +75,18 @@ document.addEventListener('DOMContentLoaded', () => {
         item.style.transform = 'translateY(20px)';
         item.style.transition = `all 0.5s ease ${index * 0.1}s`;
         observer.observe(item);
+    });
+
+    let currentLang = "en";
+    const toggleBtn = document.getElementById("langToggle");
+
+    toggleBtn.addEventListener("click", () => {
+        currentLang = currentLang === "en" ? "id" : "en";
+        toggleBtn.textContent = currentLang === "en" ? "🇬🇧 EN" : "🇮🇩 ID";
+
+        document.querySelectorAll("[data-en]").forEach(el => {
+            el.textContent = el.getAttribute(`data-${currentLang}`);
+        });
     });
 });
 
