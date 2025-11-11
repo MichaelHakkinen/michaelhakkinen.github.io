@@ -44,21 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     });
 
-    // Enable ScrollSpy
-    new bootstrap.ScrollSpy(document.body, {
-        target: '#mainNav',
-        offset: 100
-    });
-
-    // Highlight brand when Home is active
-    document.addEventListener("activate.bs.scrollspy", () => {
-        if (homeLink.classList.contains("active")) {
-            brand.classList.add("active-brand");
-        } else {
-            brand.classList.remove("active-brand");
-        }
-    });
-
     // Timeline animations
     const items = document.querySelectorAll('.resume-timeline-item');
     const observer = new IntersectionObserver(entries => {
@@ -77,25 +62,50 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(item);
     });
 
+    // ==============================
+// Language Toggle (EN 🇺🇸 ↔ ID 🇮🇩)
+// ==============================
+const toggleBtn = document.getElementById("langToggle");
+
+if (toggleBtn) {
     let currentLang = "en";
-    const toggleBtn = document.getElementById("langToggle");
+
+    const updateButton = () => {
+        if (currentLang === "en") {
+            toggleBtn.innerHTML = '<img src="flags/us.png" width="20" height="14" class="me-1" alt="US flag"> EN';
+        } else {
+            toggleBtn.innerHTML = '<img src="flags/id.png" width="20" height="14" class="me-1" alt="ID flag"> ID';
+        }
+    };
+
+    // Initial setup
+    updateButton();
 
     toggleBtn.addEventListener("click", () => {
         currentLang = currentLang === "en" ? "id" : "en";
-        toggleBtn.textContent = currentLang === "en" ? "🇬🇧 EN" : "🇮🇩 ID";
+        updateButton();
 
+        // Update all text elements with data attributes
         document.querySelectorAll("[data-en]").forEach(el => {
-            if (el.tagName === "A") {
-                if (el.hasAttribute(`data-${currentLang}`)) {
-                    el.setAttribute("href", el.getAttribute(`data-${currentLang}`));
-                }
-                if (el.hasAttribute(`data-${currentLang}-label`)) {
+            const newText = el.getAttribute(`data-${currentLang}`);
+            if (newText) {
+                // For download links, handle separately
+                if (el.tagName === "A" && el.hasAttribute("data-en-label")) {
                     el.textContent = el.getAttribute(`data-${currentLang}-label`);
+                    el.setAttribute("href", el.getAttribute(`data-${currentLang}`));
+                    // Re-append icon if present
+                    const icon = document.createElement("i");
+                    icon.className = "fas fa-download ms-2 animate__animated animate__bounce animate__infinite animate__slow";
+                    el.appendChild(icon);
+                } else {
+                    el.textContent = newText;
                 }
-            } else {
-                el.textContent = el.getAttribute(`data-${currentLang}`);
             }
         });
     });
+}
+
+
+
 });
 
