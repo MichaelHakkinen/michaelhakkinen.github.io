@@ -253,6 +253,13 @@ body {
     font-size: 0.8rem;
 }
 
+.resume-section-heading {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 5px;
+    opacity: 0.9;
+}
+
 /* ================================
    Responsive
 ================================ */
@@ -334,3 +341,4 @@ footer {
   vertical-align: middle;
   margin-right: 6px;
 }
+
