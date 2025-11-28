@@ -106,12 +106,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 // Case 3: Normal text replacement
-                el.textContent = newText;
+                const targetBold = el.querySelector("b[data-lang-target]");
+                if (targetBold) {
+                    targetBold.textContent = newText;
+                } else {
+                    el.textContent = newText;
+                }
+
             });
         });
     }
 
 
 });
+
 
 
