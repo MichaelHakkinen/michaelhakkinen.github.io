@@ -63,49 +63,55 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==============================
-// Language Toggle (EN 🇺🇸 ↔ ID 🇮🇩)
-// ==============================
-const toggleBtn = document.getElementById("langToggle");
+    // Language Toggle (EN ↔ ID)
+    // ==============================
+    const toggleBtn = document.getElementById("langToggle");
 
-if (toggleBtn) {
-    let currentLang = "en";
+    if (toggleBtn) {
+        let currentLang = "en";
 
-    const updateButton = () => {
-        if (currentLang === "en") {
-            toggleBtn.innerHTML = '<img src="flags/us.png" width="20" height="14" class="me-1" alt="US flag"> EN';
-        } else {
-            toggleBtn.innerHTML = '<img src="flags/id.png" width="20" height="14" class="me-1" alt="ID flag"> ID';
-        }
-    };
+        const updateButton = () => {
+            toggleBtn.innerHTML =
+                currentLang === "en"
+                    ? '<img src="flags/us.png" width="20" height="14" class="me-1"> EN'
+                    : '<img src="flags/id.png" width="20" height="14" class="me-1"> ID';
+        };
 
-    // Initial setup
-    updateButton();
-
-    toggleBtn.addEventListener("click", () => {
-        currentLang = currentLang === "en" ? "id" : "en";
         updateButton();
 
-        // Update all text elements with data attributes
-        document.querySelectorAll("[data-en]").forEach(el => {
-            const newText = el.getAttribute(`data-${currentLang}`);
-            if (newText) {
-                // For download links, handle separately
+        toggleBtn.addEventListener("click", () => {
+            currentLang = currentLang === "en" ? "id" : "en";
+            updateButton();
+
+            document.querySelectorAll("[data-en]").forEach(el => {
+                const newText = el.getAttribute(`data-${currentLang}`);
+                if (!newText) return;
+
+                // Case 1: special download button
                 if (el.tagName === "A" && el.hasAttribute("data-en-label")) {
                     el.textContent = el.getAttribute(`data-${currentLang}-label`);
                     el.setAttribute("href", el.getAttribute(`data-${currentLang}`));
-                    // Re-append icon if present
+
                     const icon = document.createElement("i");
                     icon.className = "fas fa-download ms-2 animate__animated animate__bounce animate__infinite animate__slow";
                     el.appendChild(icon);
-                } else {
-                    el.textContent = newText;
+                    return;
                 }
-            }
-        });
-    });
-}
 
+                // Case 2: If element contains <b>, replace ONLY the bold text
+                const boldChild = el.querySelector("b");
+                if (boldChild) {
+                    boldChild.textContent = newText;
+                    return;
+                }
+
+                // Case 3: Normal text replacement
+                el.textContent = newText;
+            });
+        });
+    }
 
 
 });
+
 
