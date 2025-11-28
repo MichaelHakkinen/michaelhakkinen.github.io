@@ -92,6 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     el.textContent = el.getAttribute(`data-${currentLang}-label`);
                     el.setAttribute("href", el.getAttribute(`data-${currentLang}`));
 
+                    el.setAttribute("download", "Michael Hakkinen Resume.pdf");
+                    
                     const icon = document.createElement("i");
                     icon.className = "fas fa-download ms-2 animate__animated animate__bounce animate__infinite animate__slow";
                     el.appendChild(icon);
@@ -119,6 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 });
+
 
 
 
