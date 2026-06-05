@@ -109,19 +109,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ──────────────────────────────
-       PARTICLE CANVAS (hero)
+       PARTICLE CANVAS (hero) — 3D Shooting Stars with Mouse Deflection
     ────────────────────────────── */
     const canvas = document.createElement('canvas');
     canvas.id = 'heroParticles';
     canvas.style.cssText = `
         position:absolute; inset:0; width:100%; height:100%;
-        pointer-events:none; z-index:1; opacity:0.55;
+        pointer-events:none; z-index:1; opacity:0.75;
     `;
     const heroSection = document.getElementById('home');
     if (heroSection) heroSection.appendChild(canvas);
 
     const ctx = canvas.getContext('2d');
-    let W, H, particles = [];
+    let W, H;
+    let stars = [];
+    const maxDepth = 1000;
+    const starCount = 250; // Increased star count
+
+    // Mouse tracking relative to the hero section
+    let mouse = { x: -9999, y: -9999, active: false };
+
+    heroSection.addEventListener('mousemove', (e) => {
+        const rect = heroSection.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+        mouse.active = true;
+    }, { passive: true });
+
+    heroSection.addEventListener('mouseleave', () => {
+        mouse.active = false;
+        mouse.x = -9999;
+        mouse.y = -9999;
+    }, { passive: true });
 
     const resize = () => {
         W = canvas.width  = heroSection.offsetWidth;
@@ -130,37 +149,123 @@ document.addEventListener('DOMContentLoaded', () => {
     resize();
     window.addEventListener('resize', resize, { passive: true });
 
-    const COLORS = ['rgba(79,142,247,', 'rgba(155,93,229,', 'rgba(0,212,255,'];
+    const COLORS = ['rgba(79, 142, 247, ', 'rgba(155, 93, 229, ', 'rgba(0, 212, 255, '];
 
-    class Particle {
-        constructor() { this.reset(true); }
-        reset(init = false) {
-            this.x  = Math.random() * W;
-            this.y  = init ? Math.random() * H : H + 10;
-            this.r  = Math.random() * 1.8 + 0.4;
-            this.vy = -(Math.random() * 0.35 + 0.1);
-            this.vx = (Math.random() - 0.5) * 0.18;
-            this.alpha = Math.random() * 0.5 + 0.15;
-            this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+    class Star {
+        constructor() {
+            this.reset(true);
         }
+
+        reset(init = false) {
+            // Distribute stars in a 3D box
+            const spreadX = W * 1.5;
+            const spreadY = H * 1.5;
+            this.x = (Math.random() - 0.5) * spreadX;
+            this.y = (Math.random() - 0.5) * spreadY;
+            this.z = init ? Math.random() * maxDepth : maxDepth;
+
+            this.vx = 0;
+            this.vy = 0;
+            this.speed = Math.random() * 1.5 + 1.2; // Decreased speed for a smoother, slower flow
+            this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+
+            this.prevX = this.x;
+            this.prevY = this.y;
+            this.prevZ = this.z;
+        }
+
         update() {
+            this.prevX = this.x;
+            this.prevY = this.y;
+            this.prevZ = this.z;
+
+            // Move closer along Z, apply velocity deflection
+            this.z -= this.speed;
             this.x += this.vx;
             this.y += this.vy;
-            if (this.y < -10) this.reset();
+
+            // Decay velocities
+            this.vx *= 0.94;
+            this.vy *= 0.94;
+
+            const f = 450; // Focal length
+            const centerX = W / 2;
+            const centerY = H / 2;
+
+            const screenX = centerX + (this.x / this.z) * f;
+            const screenY = centerY + (this.y / this.z) * f;
+
+            if (mouse.active) {
+                const dx = screenX - mouse.x;
+                const dy = screenY - mouse.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                const repelRadius = 140;
+
+                if (dist < repelRadius && dist > 1) {
+                    const force = (repelRadius - dist) / repelRadius;
+                    const push = force * force * 15;
+
+                    const angle = Math.atan2(dy, dx);
+                    const pushX = Math.cos(angle) * push;
+                    const pushY = Math.sin(angle) * push;
+
+                    const zScale = this.z / f;
+                    this.vx += pushX * zScale * 0.75;
+                    this.vy += pushY * zScale * 0.75;
+                }
+            }
+
+            // Reset when star is too close or off-screen
+            if (
+                this.z <= 15 || 
+                screenX < -150 || screenX > W + 150 || 
+                screenY < -150 || screenY > H + 150
+            ) {
+                this.reset();
+            }
         }
+
         draw() {
+            const f = 450;
+            const centerX = W / 2;
+            const centerY = H / 2;
+
+            const screenX = centerX + (this.x / this.z) * f;
+            const screenY = centerY + (this.y / this.z) * f;
+
+            const prevScreenX = centerX + (this.prevX / this.prevZ) * f;
+            const prevScreenY = centerY + (this.prevY / this.prevZ) * f;
+
+            const alpha = Math.min(1, (maxDepth - this.z) / 150) * 0.85;
+            const size = Math.min(5, (1 - this.z / maxDepth) * 4.5 + 0.5);
+
             ctx.beginPath();
-            ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-            ctx.fillStyle = `${this.color}${this.alpha})`;
-            ctx.fill();
+            ctx.moveTo(prevScreenX, prevScreenY);
+            ctx.lineTo(screenX, screenY);
+            ctx.strokeStyle = `${this.color}${alpha})`;
+            ctx.lineWidth = size;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+
+            if (this.z < maxDepth * 0.55) {
+                ctx.beginPath();
+                ctx.arc(screenX, screenY, size * 0.4, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+                ctx.fill();
+            }
         }
     }
 
-    for (let i = 0; i < 90; i++) particles.push(new Particle());
+    for (let i = 0; i < starCount; i++) {
+        stars.push(new Star());
+    }
 
     const animateParticles = () => {
         ctx.clearRect(0, 0, W, H);
-        particles.forEach(p => { p.update(); p.draw(); });
+        stars.forEach(s => {
+            s.update();
+            s.draw();
+        });
         requestAnimationFrame(animateParticles);
     };
     animateParticles();
