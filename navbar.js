@@ -347,18 +347,32 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!entry.isIntersecting) return;
             const el   = entry.target;
             const text = el.textContent.trim();
-            const match = text.match(/^(\d+)(%|\+)?/);
+            // Match strictly numbers or numbers followed by % or + (e.g. "30%", "85%+")
+            // This prevents replacing text in longer phrases like "100% on-schedule" or "5,000 – 20,000+ attendees"
+            const match = text.match(/^(\d+)(%|\+)?$/);
             if (match) {
                 const num    = parseInt(match[1], 10);
                 const suffix = match[2] || '';
-                animateCounter(el, num, suffix);
+                // Wait for the timeline card reveal transition (0.7s) to finish before starting count-up
+                setTimeout(() => {
+                    animateCounter(el, num, suffix);
+                }, 800);
             }
             counterObserver.unobserve(el);
         });
     }, { threshold: 0.5 });
 
     document.querySelectorAll('.resume-timeline-description strong').forEach(el => {
-        if (/^\d/.test(el.textContent.trim())) counterObserver.observe(el);
+        const text = el.textContent.trim();
+        if (/^\d+(%|\+)?$/.test(text)) {
+            // Reserve exact space and use tabular numbers to prevent text/layout shifting during count-up
+            el.style.display = 'inline-block';
+            el.style.minWidth = `${text.length + 0.2}ch`;
+            el.style.textAlign = 'center';
+            el.style.fontVariantNumeric = 'tabular-nums';
+            
+            counterObserver.observe(el);
+        }
     });
 
     /* ──────────────────────────────

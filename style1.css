@@ -133,9 +133,8 @@ body { font-family: 'Inter', sans-serif !important; }
 }
 
 #mainNav.scrolled {
-    background: rgba(7, 11, 20, 0.88) !important;
-    backdrop-filter: blur(24px) saturate(200%);
-    -webkit-backdrop-filter: blur(24px) saturate(200%);
+    background: rgba(7, 11, 20, 0.95) !important;
+    /* backdrop-filter removed — was causing scroll flicker and repaint lag */
     border-bottom: 1px solid var(--border-glass);
     padding: 0.65rem 0;
     box-shadow: 0 4px 40px rgba(0,0,0,0.5);
@@ -490,11 +489,11 @@ body { font-family: 'Inter', sans-serif !important; }
 .hero-card {
     position: relative;
     width: 260px;
-    background: rgba(255,255,255,0.03);
+    background: rgba(7, 11, 20, 0.85);
     border: 1px solid var(--border-glass);
     border-radius: 20px;
     padding: 2rem 1.8rem;
-    backdrop-filter: blur(16px);
+    /* backdrop-filter removed to prevent blurriness and layout stutter */
     text-align: center;
     box-shadow: 0 20px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
     overflow: hidden;
@@ -803,7 +802,6 @@ body { font-family: 'Inter', sans-serif !important; }
     border-radius: var(--radius-md);
     /* backdrop-filter removed — was causing scroll flicker/stutter */
     transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition), background var(--transition);
-    will-change: transform;
 }
 .resume-timeline-content:hover {
     transform: translateX(4px);
@@ -1102,7 +1100,7 @@ body { font-family: 'Inter', sans-serif !important; }
     transform: translateY(8px);
     width: fit-content;
     letter-spacing: 0.02em;
-    backdrop-filter: blur(4px);
+    backdrop-filter: none;
 }
 .portfolio-item:hover .btn-portfolio {
     opacity: 1;
@@ -1164,14 +1162,14 @@ body { font-family: 'Inter', sans-serif !important; }
 }
 
 .contact-box {
-    background: var(--bg-card);
+    background: rgba(7, 11, 20, 0.85);
     border: 1px solid var(--border-glass);
     border-radius: var(--radius-md);
     padding: 2rem 2.2rem;
     min-width: 200px;
     text-align: center;
     transition: all var(--transition);
-    backdrop-filter: blur(10px);
+    /* backdrop-filter removed */
 }
 .contact-box:hover {
     background: var(--bg-card-hover);
@@ -1268,12 +1266,10 @@ footer {
     opacity: 0;
     transform: translateY(32px);
     transition: opacity 0.7s ease, transform 0.7s ease;
-    will-change: transform, opacity;
 }
 .reveal.visible {
     opacity: 1;
     transform: translateY(0);
-    will-change: auto;
 }
 
 /* ================================
