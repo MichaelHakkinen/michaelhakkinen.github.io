@@ -968,20 +968,122 @@ body { font-family: 'Inter', sans-serif !important; }
     background: rgba(79,142,247,0.06);
 }
 
-/* ── Portfolio grid ── */
-.portfolio-grid {
+/* ── Portfolio grids ── */
+.featured-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto;
-    gap: 16px;
+    gap: 24px;
+    margin-bottom: 56px;
 }
 
-/* First card spans 2 columns */
-.portfolio-item:first-child {
-    grid-column: span 2;
+.featured-item {
+    aspect-ratio: 16/10;
 }
-.portfolio-item:first-child .portfolio-overlay h5 {
-    font-size: 1.2rem;
+
+.featured-item.featured-main {
+    grid-column: span 2;
+    aspect-ratio: 2.3/1;
+}
+
+/* Glowing card borders/shadows on hover */
+.glowing-blue:hover {
+    box-shadow: 0 28px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(79,142,247,0.35), 0 0 40px rgba(79,142,247,0.15) !important;
+    border-color: rgba(79,142,247,0.45) !important;
+}
+.glowing-cyan:hover {
+    box-shadow: 0 28px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(0,212,255,0.35), 0 0 40px rgba(0,212,255,0.15) !important;
+    border-color: rgba(0,212,255,0.45) !important;
+}
+.glowing-violet:hover {
+    box-shadow: 0 28px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(155,93,229,0.35), 0 0 40px rgba(155,93,229,0.15) !important;
+    border-color: rgba(155,93,229,0.45) !important;
+}
+
+/* Make overlay and titles larger for featured main */
+.featured-main .portfolio-overlay {
+    padding: 2.2rem 2.5rem;
+}
+.featured-main .portfolio-overlay h5 {
+    font-size: 1.45rem;
+    margin-bottom: 0.5rem;
+}
+.featured-main .portfolio-overlay p {
+    font-size: 0.88rem;
+    margin-bottom: 1rem;
+    max-width: 70%;
+}
+.featured-main .portfolio-tag {
+    font-size: 0.72rem;
+    padding: 4px 12px;
+    margin-bottom: 0.75rem;
+}
+
+/* Make overlay and titles larger for other featured items */
+.featured-item:not(.featured-main) .portfolio-overlay {
+    padding: 1.8rem 2rem;
+}
+.featured-item:not(.featured-main) .portfolio-overlay h5 {
+    font-size: 1.15rem;
+    margin-bottom: 0.4rem;
+}
+.featured-item:not(.featured-main) .portfolio-overlay p {
+    font-size: 0.8rem;
+    margin-bottom: 0.9rem;
+}
+.featured-item:not(.featured-main) .portfolio-tag {
+    font-size: 0.68rem;
+    padding: 3px 10px;
+    margin-bottom: 0.65rem;
+}
+
+/* Other Projects section */
+.other-projects-heading {
+    margin-top: 60px;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.other-projects-heading::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border-glass), transparent);
+}
+.other-projects-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+.other-projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.other-item {
+    aspect-ratio: 1.45/1;
+}
+.other-item .portfolio-overlay {
+    padding: 1.1rem 1.25rem;
+}
+.other-item .portfolio-overlay h5 {
+    font-size: 0.88rem;
+    margin-bottom: 0.25rem;
+}
+.other-item .portfolio-overlay p {
+    font-size: 0.72rem;
+    margin-bottom: 0.55rem;
+    opacity: 0.85;
+}
+.other-item .portfolio-tag {
+    font-size: 0.62rem;
+    padding: 2px 7px;
+    margin-bottom: 0.45rem;
 }
 
 /* Card base */
@@ -1113,13 +1215,37 @@ body { font-family: 'Inter', sans-serif !important; }
 }
 
 /* Responsive portfolio */
-@media (max-width: 900px) {
-    .portfolio-grid { grid-template-columns: 1fr 1fr; }
-    .portfolio-item:first-child { grid-column: span 2; }
+@media (max-width: 991px) {
+    .featured-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .featured-item.featured-main {
+        grid-column: span 1;
+        aspect-ratio: 16/10;
+    }
+    .other-projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
 }
-@media (max-width: 600px) {
-    .portfolio-grid { grid-template-columns: 1fr; }
-    .portfolio-item:first-child { grid-column: span 1; }
+@media (max-width: 650px) {
+    .other-projects-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .featured-item.featured-main {
+        aspect-ratio: 4/3;
+    }
+    .featured-item {
+        aspect-ratio: 4/3;
+    }
+    .other-item {
+        aspect-ratio: 4/3;
+    }
+    .featured-main .portfolio-overlay p {
+        max-width: 100%;
+    }
 }
 
 /* ================================
